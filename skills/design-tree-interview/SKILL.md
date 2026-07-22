@@ -13,7 +13,7 @@ description: >
   some notes in the file, check it out").
 ---
 
-# Design-Tree Interview
+# Design Tree Interview
 
 A workflow for driving a design conversation to convergence *before* an agent
 starts writing code. The core idea: instead of asking clarifying questions in
@@ -78,10 +78,13 @@ exists). Structure:
 # Interview: <Topic>
 
 ## How to use this doc
-Answer inline: `Q:` questions get an `A:` slot right below them. Add `Note:`
-for anything that doesn't fit the Q/A shape. Status tags: OPEN (unanswered),
-REC (agent has a recommendation, awaiting confirmation), RESOLVED (decided),
-DEFERRED (explicitly punted).
+Answer inline: `Q:` questions get an `A:` slot right below them. 
+Add `Note:` for anything that doesn't fit the Q/A shape. 
+Status tags: 
+- OPEN (unanswered),
+- REC (agent has a recommendation, awaiting confirmation),
+- RESOLVED (decided),
+- DEFERRED (explicitly punted).
 
 ## Baseline — how this works today (not up for debate, just context)
 [A table or short prose grounding every later question in verified code
