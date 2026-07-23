@@ -1,7 +1,8 @@
 ---
 name: spicy-alignment
-description: Structured, whiteboard-first alignment before action. Use only when spicy alignment is mentioned. The output is a resolved interview doc with every decision node marked `RESOLVED` or `DEFERRED`.
+description: Structured, whiteboard-first alignment before action. Produces a resolved interview doc with every decision node marked `RESOLVED` or `DEFERRED`.
 license: MIT
+disable-model-invocation: true
 metadata: 
   author: ZequnZ
   version: 1.0
@@ -28,10 +29,16 @@ What you do with it next — implementation plan, action items, a separate desig
 
 Before writing a single question, research the topic yourself.
 Every question in the interview doc should be a genuine unknown — something you could not resolve on your own.
-If you find yourself about to ask "how does X work today?", that's research, not a question for the human.
 
-**Domain-specific pre-work:** If this is a software design decision, read `references/software-pre-work.md` before writing the interview doc — it covers code reading, checking for dormant capability, and checking prior decisions.
-Future domain add-ons (product, process, etc.) can follow the same pattern as separate reference docs.
+General homework checklist:
+- What exists today? (The baseline — verified with evidence, not assumptions.)
+- Has this been decided before? (Check prior docs, meeting notes, decision records.)
+- Is there a partial or dormant version of what's being asked for? (Check existing systems, processes, or artifacts before designing new ones.)
+
+If you find yourself about to ask the human something on this list, that's research, not a question.
+
+**Domain-specific pre-work:** Check `references/` for a pre-work doc matching this domain.
+If one exists, read it before writing the interview doc.
 
 ### 2. Write the interview doc
 
@@ -60,16 +67,17 @@ The user will often not reply in chat.
 They'll open the file, drop notes next to questions, and say something like "I made some notes, check the file."
 Read `references/answer-handling-protocol.md` for the full protocol — it covers the four shapes an answer can take (plain pick, contradiction/reversal, "evaluate this idea", "elaborate with examples") and exactly how to handle each.
 
+The critical distinction: not every answer is a plain pick.
+Contradictions reopen resolved nodes, "evaluate this idea" opens new sub-nodes, and "elaborate with examples" signals your recommendation wasn't concrete enough.
+Treating all four shapes as plain picks is the most common way this workflow goes wrong.
+
 The one-line summary: **find every note by searching** (check whether the file is git-tracked — if yes, `git diff` is your best tool; if not, grep for answer markers + check timestamps); trace the *mechanism implication* of each answer, not just the text; propagate the decision to every dependent section; and when a later answer reverses an earlier one, name both, say which one now governs, and ask an explicit reconciliation question.
 
 ### 4. Repeat until the tree is fully resolved
 
-Keep iterating until every node in the design tree is `RESOLVED` or `DEFERRED`.
+Keep the **interview**iterating until every node in the design tree is `RESOLVED` or `DEFERRED`.
 Promote parking-lot items into new iteration questions when their upstream dependencies resolve.
 The interview doc is done when the tree shows all nodes resolved and the answer log has no remaining `Awaiting` items.
-
-The output of this process is the resolved interview doc.
-What you do with it next — implementation plan, action items, a separate design doc — is outside this skill's scope.
 
 ### 5. Self-evolve: capture the generalizable lesson
 
@@ -82,8 +90,8 @@ If the lesson is genuinely one-off and doesn't generalize, don't force it in.
 
 ## Pitfalls
 
-- **Jumping straight to execution.** The #1 failure mode. "Any ideas?" does not mean "write a patch" or "draft the plan." If the user wanted action, they'd have said so.
-- **Asking questions you could resolve yourself.** Research the topic first. A question the human has to answer that you could've figured out on your own wastes their attention and signals you didn't do the homework.
+- **Jumping straight to execution.** The #1 failure mode of any interview. "Any ideas?" does not mean "write a patch" or "draft the plan." If the user wanted action, they'd have said so.
+- **Asking questions you could resolve yourself.** A question the human has to answer that you could've figured out wastes their attention and signals you skipped the homework.
 - **Silently picking a side when an answer contradicts an earlier one.** This will happen — understanding evolves over rounds. Reconcile it explicitly (see the answer-handling reference), never paper over it.
 - **Treating "evaluate this idea" as a decision.** When the user floats an idea instead of picking from your options, that opens a new evaluation node — investigate the implications, present sub-options, recommend, and if it's a scope/appetite call rather than a correctness call, say so and hand the decision back.
 - **Skipping the implication check.** The text of an answer can look like a simple substitution and still change real behavior elsewhere. Trace what the answer actually implies for other decisions before writing it down as resolved.
