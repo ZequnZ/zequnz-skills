@@ -6,7 +6,7 @@ disable-model-invocation: true
 metadata: 
   author: ZequnZ
   version: 1.0
-  updated: 2026-07-23
+  updated: "2026-07-23"
 ---
 
 # Spicy Alignment
